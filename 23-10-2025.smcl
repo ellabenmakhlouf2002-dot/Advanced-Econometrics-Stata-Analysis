@@ -1,0 +1,437 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\HP\Desktop\IHEC Carthage\M1 RF 2025-2026\Semestre 1\Econometrics of Qualitative Variables\Stata\23-10-2025.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}23 Oct 2025, 09:15:32
+
+{com}. use "C:\Users\HP\Desktop\IHEC Carthage\M1 RF 2025-2026\Semestre 1\Econometrics of Qualitative Variables\Stata\C12EX1.dta"
+
+. des
+
+{txt}Contains data from {res}C:\Users\HP\Desktop\IHEC Carthage\M1 RF 2025-2026\Semestre 1\Econometrics of Qualitative Variables\Stata\C12EX1.dta
+{txt} Observations:{res}            60                  
+{txt}    Variables:{res}             6                  11 Oct 2017 22:31
+{txt}{hline}
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:obs            }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}OBS{p_end}
+{p 0 48}{bind:reussite       }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}REUSSITE{p_end}
+{p 0 48}{bind:genre          }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}GENRE{p_end}
+{p 0 48}{bind:necono         }{txt}{bind: float   }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}NECONO{p_end}
+{p 0 48}{bind:nenfants       }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}NENFANTS{p_end}
+{p 0 48}{bind:nmicro         }{txt}{bind: float   }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}NMICRO{p_end}
+{txt}{hline}
+Sorted by: 
+
+{com}. summarize reussite
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 4}reussite {c |}{res}         60    .5166667    .5039393          0          1
+
+{com}. sum reussite genre necono nenfants nmicro
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 4}reussite {c |}{res}         60    .5166667    .5039393          0          1
+{txt}{space 7}genre {c |}{res}         60          .5    .5042195          0          1
+{txt}{space 6}necono {c |}{res}         60    9.356667    3.641957        3.6         17
+{txt}{space 4}nenfants {c |}{res}         60        2.25    1.569033          0          5
+{txt}{space 6}nmicro {c |}{res}         60        6.32    3.617322          0         15
+
+{com}. sum necono nenfants nmicro
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 6}necono {c |}{res}         60    9.356667    3.641957        3.6         17
+{txt}{space 4}nenfants {c |}{res}         60        2.25    1.569033          0          5
+{txt}{space 6}nmicro {c |}{res}         60        6.32    3.617322          0         15
+
+{com}. tabulate reussite
+
+   {txt}REUSSITE {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}         29       48.33       48.33
+{txt}          1 {c |}{res}         31       51.67      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}         60      100.00
+
+{com}. tab genre
+
+      {txt}GENRE {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}         30       50.00       50.00
+{txt}          1 {c |}{res}         30       50.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}         60      100.00
+
+{com}. pwcorr reussite genre, star(5)
+
+             {txt}{c |} reussite    genre
+{hline 13}{c +}{hline 18}
+    reussite {c |} {res}  1.0000 
+       {txt}genre {c |} {res} -0.4336*  1.0000 
+
+{com}. pwcorr necono nenfants nmicro , star(5)
+
+             {txt}{c |}   necono nenfants   nmicro
+{hline 13}{c +}{hline 27}
+      necono {c |} {res}  1.0000 
+    {txt}nenfants {c |} {res} -0.6387*  1.0000 
+      {txt}nmicro {c |} {res}  0.6273* -0.5728*  1.0000 
+
+{com}. logistic reussite genre necono nenfants nmicro
+{res}
+{txt}{col 1}Logistic regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:60}
+{txt}{col 57}{lalign 13:LR chi2({res:4})}{col 70} = {res}{ralign 6:53.04}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-15.037494}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.6381}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    reussite{col 14}{c |} Odds ratio{col 26}   Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}genre {c |}{col 14}{res}{space 2} .0232438{col 26}{space 2}  .033403{col 37}{space 1}   -2.62{col 46}{space 3}0.009{col 54}{space 4} .0013902{col 67}{space 3} .3886372
+{txt}{space 6}necono {c |}{col 14}{res}{space 2} 1.881485{col 26}{space 2} .4507372{col 37}{space 1}    2.64{col 46}{space 3}0.008{col 54}{space 4} 1.176476{col 67}{space 3} 3.008975
+{txt}{space 4}nenfants {c |}{col 14}{res}{space 2} .5053404{col 26}{space 2} .1914585{col 37}{space 1}   -1.80{col 46}{space 3}0.072{col 54}{space 4} .2404856{col 67}{space 3} 1.061889
+{txt}{space 6}nmicro {c |}{col 14}{res}{space 2} 1.168034{col 26}{space 2} .2206602{col 37}{space 1}    0.82{col 46}{space 3}0.411{col 54}{space 4} .8065842{col 67}{space 3} 1.691457
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .0381727{col 26}{space 2} .0771113{col 37}{space 1}   -1.62{col 46}{space 3}0.106{col 54}{space 4} .0007282{col 67}{space 3} 2.000935
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 2}Note: {bf:_cons} estimates baseline odds{txt}.{p_end}
+
+{com}. probit reussite genre necono nenfants nmicro
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-41.555491}  
+Iteration 1:{space 2}Log likelihood = {res:-15.581262}  
+Iteration 2:{space 2}Log likelihood = {res:-15.150316}  
+Iteration 3:{space 2}Log likelihood = {res:   -15.146}  
+Iteration 4:{space 2}Log likelihood = {res:   -15.146}  
+{res}
+{txt}{col 1}Probit regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:60}
+{txt}{col 57}{lalign 13:LR chi2({res:4})}{col 70} = {res}{ralign 6:52.82}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 7:-15.146}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.6355}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    reussite{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}genre {c |}{col 14}{res}{space 2}-1.941041{col 26}{space 2} .6882348{col 37}{space 1}   -2.82{col 46}{space 3}0.005{col 54}{space 4}-3.289956{col 67}{space 3}-.5921252
+{txt}{space 6}necono {c |}{col 14}{res}{space 2} .3280806{col 26}{space 2}  .116794{col 37}{space 1}    2.81{col 46}{space 3}0.005{col 54}{space 4} .0991686{col 67}{space 3} .5569926
+{txt}{space 4}nenfants {c |}{col 14}{res}{space 2}-.3868465{col 26}{space 2} .2207536{col 37}{space 1}   -1.75{col 46}{space 3}0.080{col 54}{space 4}-.8195155{col 67}{space 3} .0458225
+{txt}{space 6}nmicro {c |}{col 14}{res}{space 2} .0954026{col 26}{space 2} .1078521{col 37}{space 1}    0.88{col 46}{space 3}0.376{col 54}{space 4}-.1159835{col 67}{space 3} .3067888
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-1.772861{col 26}{space 2} 1.172385{col 37}{space 1}   -1.51{col 46}{space 3}0.130{col 54}{space 4}-4.070693{col 67}{space 3} .5249713
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. exit
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\HP\Desktop\IHEC Carthage\M1 RF 2025-2026\Semestre 1\Econometrics of Qualitative Variables\Stata\23-10-2025.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}30 Oct 2025, 09:00:31
+
+{com}. use "C:\Users\HP\Desktop\IHEC Carthage\M1 RF 2025-2026\Semestre 1\Econometrics of Qualitative Variables\Stata\C12EX1.dta"
+
+. regress reussite genre necono nenfants nmicro
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}        60
+{txt}{hline 13}{c +}{hline 34}   F(4, 55)        = {res}    21.96
+{txt}       Model {c |} {res} 9.21409483         4  2.30352371   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res}  5.7692385        55  .104895245   {txt}R-squared       ={res}    0.6150
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.5870
+{txt}       Total {c |} {res} 14.9833333        59  .253954802   {txt}Root MSE        =   {res} .32388
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    reussite{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}genre {c |}{col 14}{res}{space 2} -.295133{col 26}{space 2}  .087526{col 37}{space 1}   -3.37{col 46}{space 3}0.001{col 54}{space 4} -.470539{col 67}{space 3} -.119727
+{txt}{space 6}necono {c |}{col 14}{res}{space 2}  .061738{col 26}{space 2} .0165633{col 37}{space 1}    3.73{col 46}{space 3}0.000{col 54}{space 4} .0285445{col 67}{space 3} .0949315
+{txt}{space 4}nenfants {c |}{col 14}{res}{space 2}-.0710141{col 26}{space 2} .0376647{col 37}{space 1}   -1.89{col 46}{space 3}0.065{col 54}{space 4}-.1464959{col 67}{space 3} .0044677
+{txt}{space 6}nmicro {c |}{col 14}{res}{space 2} .0112389{col 26}{space 2}  .015626{col 37}{space 1}    0.72{col 46}{space 3}0.475{col 54}{space 4}-.0200763{col 67}{space 3} .0425541
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}  .175323{col 26}{space 2} .2132228{col 37}{space 1}    0.82{col 46}{space 3}0.414{col 54}{space 4} -.251985{col 67}{space 3}  .602631
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. logit reussite genre necono nenfants nmicro
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-41.555491}  
+Iteration 1:{space 2}Log likelihood = {res:-15.493662}  
+Iteration 2:{space 2}Log likelihood = {res:-15.051909}  
+Iteration 3:{space 2}Log likelihood = {res:-15.037515}  
+Iteration 4:{space 2}Log likelihood = {res:-15.037494}  
+Iteration 5:{space 2}Log likelihood = {res:-15.037494}  
+{res}
+{txt}{col 1}Logistic regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:60}
+{txt}{col 57}{lalign 13:LR chi2({res:4})}{col 70} = {res}{ralign 6:53.04}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-15.037494}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.6381}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    reussite{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}genre {c |}{col 14}{res}{space 2}-3.761718{col 26}{space 2} 1.437072{col 37}{space 1}   -2.62{col 46}{space 3}0.009{col 54}{space 4}-6.578326{col 67}{space 3}-.9451089
+{txt}{space 6}necono {c |}{col 14}{res}{space 2} .6320616{col 26}{space 2} .2395646{col 37}{space 1}    2.64{col 46}{space 3}0.008{col 54}{space 4} .1625237{col 67}{space 3}   1.1016
+{txt}{space 4}nenfants {c |}{col 14}{res}{space 2} -.682523{col 26}{space 2} .3788703{col 37}{space 1}   -1.80{col 46}{space 3}0.072{col 54}{space 4}-1.425095{col 67}{space 3} .0600492
+{txt}{space 6}nmicro {c |}{col 14}{res}{space 2} .1553216{col 26}{space 2}  .188916{col 37}{space 1}    0.82{col 46}{space 3}0.411{col 54}{space 4} -.214947{col 67}{space 3} .5255902
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-3.265634{col 26}{space 2} 2.020062{col 37}{space 1}   -1.62{col 46}{space 3}0.106{col 54}{space 4}-7.224882{col 67}{space 3} .6936146
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. logit reussite genre necono nenfants nmicro
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-41.555491}  
+Iteration 1:{space 2}Log likelihood = {res:-15.493662}  
+Iteration 2:{space 2}Log likelihood = {res:-15.051909}  
+Iteration 3:{space 2}Log likelihood = {res:-15.037515}  
+Iteration 4:{space 2}Log likelihood = {res:-15.037494}  
+Iteration 5:{space 2}Log likelihood = {res:-15.037494}  
+{res}
+{txt}{col 1}Logistic regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:60}
+{txt}{col 57}{lalign 13:LR chi2({res:4})}{col 70} = {res}{ralign 6:53.04}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-15.037494}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.6381}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    reussite{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}genre {c |}{col 14}{res}{space 2}-3.761718{col 26}{space 2} 1.437072{col 37}{space 1}   -2.62{col 46}{space 3}0.009{col 54}{space 4}-6.578326{col 67}{space 3}-.9451089
+{txt}{space 6}necono {c |}{col 14}{res}{space 2} .6320616{col 26}{space 2} .2395646{col 37}{space 1}    2.64{col 46}{space 3}0.008{col 54}{space 4} .1625237{col 67}{space 3}   1.1016
+{txt}{space 4}nenfants {c |}{col 14}{res}{space 2} -.682523{col 26}{space 2} .3788703{col 37}{space 1}   -1.80{col 46}{space 3}0.072{col 54}{space 4}-1.425095{col 67}{space 3} .0600492
+{txt}{space 6}nmicro {c |}{col 14}{res}{space 2} .1553216{col 26}{space 2}  .188916{col 37}{space 1}    0.82{col 46}{space 3}0.411{col 54}{space 4} -.214947{col 67}{space 3} .5255902
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-3.265634{col 26}{space 2} 2.020062{col 37}{space 1}   -1.62{col 46}{space 3}0.106{col 54}{space 4}-7.224882{col 67}{space 3} .6936146
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. exit, clear
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\lenovo\Desktop\M1 rech fin\econometrie des var quali\23-10-2025.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 6 Nov 2025, 08:02:06
+
+{com}. use "C:\Users\lenovo\Desktop\M1 rech fin\econometrie des var quali\C12EX1 (5).dta"
+
+. exit, clear
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\lenovo\Desktop\M1 rech fin\econometrie des var quali\23-10-2025.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 6 Nov 2025, 08:17:52
+
+{com}. use "C:\Users\lenovo\Desktop\M1 rech fin\econometrie des var quali\C12EX2.dta"
+
+. summarize expo reduc
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 8}expo {c |}{res}         82    5.420732    2.060009         .5          9
+{txt}{space 7}reduc {c |}{res}         82    .0818783    .0994466          0   .2534198
+
+{com}. tabulate we
+
+         {txt}WE {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}         38       46.34       46.34
+{txt}          1 {c |}{res}         44       53.66      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}         82      100.00
+
+{com}. tab direct
+
+     {txt}Direct {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}         79       96.34       96.34
+{txt}          1 {c |}{res}          3        3.66      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}         82      100.00
+
+{com}. tab vente
+
+     {txt}Ventes {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}         44       53.66       53.66
+{txt}          1 {c |}{res}         27       32.93       86.59
+{txt}          2 {c |}{res}         11       13.41      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}         82      100.00
+
+{com}. ologit ventes we expo direct reduc
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-79.482191}  
+Iteration 1:{space 2}Log likelihood = {res:-61.761471}  
+Iteration 2:{space 2}Log likelihood = {res:-60.808175}  
+Iteration 3:{space 2}Log likelihood = {res:-60.803198}  
+Iteration 4:{space 2}Log likelihood = {res:-60.803197}  
+{res}
+{txt}{col 1}Ordered logistic regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:82}
+{txt}{col 57}{lalign 13:LR chi2({res:4})}{col 70} = {res}{ralign 6:37.36}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-60.803197}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.2350}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}      ventes{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 10}we {c |}{col 14}{res}{space 2}-1.395159{col 26}{space 2} .5120929{col 37}{space 1}   -2.72{col 46}{space 3}0.006{col 54}{space 4}-2.398843{col 67}{space 3}-.3914757
+{txt}{space 8}expo {c |}{col 14}{res}{space 2} .6448036{col 26}{space 2} .1501209{col 37}{space 1}    4.30{col 46}{space 3}0.000{col 54}{space 4} .3505719{col 67}{space 3} .9390352
+{txt}{space 6}direct {c |}{col 14}{res}{space 2} .2268094{col 26}{space 2} 1.325269{col 37}{space 1}    0.17{col 46}{space 3}0.864{col 54}{space 4}-2.370671{col 67}{space 3}  2.82429
+{txt}{space 7}reduc {c |}{col 14}{res}{space 2} 8.922215{col 26}{space 2} 2.759073{col 37}{space 1}    3.23{col 46}{space 3}0.001{col 54}{space 4} 3.514531{col 67}{space 3}  14.3299
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}/cut1 {c |}{col 14}{res}{space 2} 3.696627{col 26}{space 2} 1.001229{col 54}{space 4} 1.734255{col 67}{space 3} 5.658999
+{txt}{space 7}/cut2 {c |}{col 14}{res}{space 2} 6.188066{col 26}{space 2} 1.180464{col 54}{space 4} 3.874398{col 67}{space 3} 8.501733
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. ologit ventes we expo reduc
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-79.482191}  
+Iteration 1:{space 2}Log likelihood = {res:-61.758389}  
+Iteration 2:{space 2}Log likelihood = {res:-60.822466}  
+Iteration 3:{space 2}Log likelihood = {res:-60.817541}  
+Iteration 4:{space 2}Log likelihood = {res: -60.81754}  
+{res}
+{txt}{col 1}Ordered logistic regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:82}
+{txt}{col 57}{lalign 13:LR chi2({res:3})}{col 70} = {res}{ralign 6:37.33}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 9:-60.81754}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.2348}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}      ventes{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 10}we {c |}{col 14}{res}{space 2}-1.377785{col 26}{space 2} .5008236{col 37}{space 1}   -2.75{col 46}{space 3}0.006{col 54}{space 4}-2.359381{col 67}{space 3}-.3961884
+{txt}{space 8}expo {c |}{col 14}{res}{space 2} .6410226{col 26}{space 2} .1481893{col 37}{space 1}    4.33{col 46}{space 3}0.000{col 54}{space 4} .3505769{col 67}{space 3} .9314684
+{txt}{space 7}reduc {c |}{col 14}{res}{space 2} 8.982926{col 26}{space 2} 2.735164{col 37}{space 1}    3.28{col 46}{space 3}0.001{col 54}{space 4} 3.622103{col 67}{space 3} 14.34375
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}/cut1 {c |}{col 14}{res}{space 2} 3.679581{col 26}{space 2} .9945648{col 54}{space 4} 1.730269{col 67}{space 3} 5.628892
+{txt}{space 7}/cut2 {c |}{col 14}{res}{space 2} 6.170926{col 26}{space 2} 1.174856{col 54}{space 4} 3.868251{col 67}{space 3} 8.473601
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. save "C:\Users\lenovo\Desktop\M1 rech fin\econometrie des var quali\seance 3.dta"
+{txt}{p 0 4 2}
+file {bf}
+C:\Users\lenovo\Desktop\M1 rech fin\econometrie des var quali\seance 3.dta{rm}
+saved
+{p_end}
+
+{com}. save "C:\Users\lenovo\Desktop\M1 rech fin\econometrie des var quali\seance 3.dta", replace
+{txt}{p 0 4 2}
+file {bf}
+C:\Users\lenovo\Desktop\M1 rech fin\econometrie des var quali\seance 3.dta{rm}
+saved
+{p_end}
+
+{com}. exit, clear
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\lenovo\Desktop\M1 rech fin\econometrie des var quali\23-10-2025.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}13 Nov 2025, 08:06:58
+
+{com}. use "C:\Users\lenovo\Desktop\M1 rech fin\econometrie des var quali\C12EX1 (5).dta"
+
+. poisson reussite
+{res}
+{txt}Iteration 0:{space 2}Log likelihood = {res:-51.471078}  
+Iteration 1:{space 2}Log likelihood = {res:-51.471078}  
+{res}
+{txt}{col 1}Poisson regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:60}
+{txt}{col 57}{lalign 13:LR chi2({res:0})}{col 70} = {res}{ralign 6:0.00}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:.}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-51.471078}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.0000}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    reussite{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}_cons {c |}{col 14}{res}{space 2}-.6603574{col 26}{space 2} .1796053{col 37}{space 1}   -3.68{col 46}{space 3}0.000{col 54}{space 4}-1.012377{col 67}{space 3}-.3083374
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. poisson reussite genre nenco nenfants nmicro
+{err}variable {bf}nenco{sf} not found
+{txt}{search r(111), local:r(111);}
+
+{com}. poisson reussite genre necono nenfants nmicro
+{res}
+{txt}Iteration 0:{space 2}Log likelihood = {res:-42.010523}  
+Iteration 1:{space 2}Log likelihood = {res:-42.010198}  
+Iteration 2:{space 2}Log likelihood = {res:-42.010198}  
+{res}
+{txt}{col 1}Poisson regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:60}
+{txt}{col 57}{lalign 13:LR chi2({res:4})}{col 70} = {res}{ralign 6:18.92}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0008}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-42.010198}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.1838}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    reussite{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}genre {c |}{col 14}{res}{space 2} -.633878{col 26}{space 2} .4048488{col 37}{space 1}   -1.57{col 46}{space 3}0.117{col 54}{space 4}-1.427367{col 67}{space 3}  .159611
+{txt}{space 6}necono {c |}{col 14}{res}{space 2} .1262729{col 26}{space 2} .0687183{col 37}{space 1}    1.84{col 46}{space 3}0.066{col 54}{space 4}-.0084125{col 67}{space 3} .2609583
+{txt}{space 4}nenfants {c |}{col 14}{res}{space 2}-.1858501{col 26}{space 2} .1863845{col 37}{space 1}   -1.00{col 46}{space 3}0.319{col 54}{space 4} -.551157{col 67}{space 3} .1794567
+{txt}{space 6}nmicro {c |}{col 14}{res}{space 2} .0199245{col 26}{space 2} .0595583{col 37}{space 1}    0.33{col 46}{space 3}0.738{col 54}{space 4}-.0968077{col 67}{space 3} .1366566
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-1.575064{col 26}{space 2}  1.06277{col 37}{space 1}   -1.48{col 46}{space 3}0.138{col 54}{space 4}-3.658055{col 67}{space 3} .5079266
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. poisson necono nenfants nmicro
+{txt}{p 0 6 2}note: noncount dependent variable encountered;{txt} if you are fitting an exponential-mean model,{txt} consider using robust standard errors. {p_end}
+{res}
+{txt}Iteration 0:{space 2}Log likelihood = {res: -142.4858}  
+Iteration 1:{space 2}Log likelihood = {res: -142.4858}  
+{res}
+{txt}{col 1}Poisson regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:60}
+{txt}{col 57}{lalign 13:LR chi2({res:2})}{col 70} = {res}{ralign 6:42.35}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 9:-142.4858}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.1294}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}      necono{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 4}nenfants {c |}{col 14}{res}{space 2}-.1110821{col 26}{space 2} .0341777{col 37}{space 1}   -3.25{col 46}{space 3}0.001{col 54}{space 4}-.1780692{col 67}{space 3} -.044095
+{txt}{space 6}nmicro {c |}{col 14}{res}{space 2} .0378701{col 26}{space 2} .0137537{col 37}{space 1}    2.75{col 46}{space 3}0.006{col 54}{space 4} .0109132{col 67}{space 3}  .064827
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 2.208904{col 26}{space 2} .1510599{col 37}{space 1}   14.62{col 46}{space 3}0.000{col 54}{space 4} 1.912832{col 67}{space 3} 2.504976
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. sum reussite
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 4}reussite {c |}{res}         60    .5166667    .5039393          0          1
+
+{com}. nbreg reussite necono nenfants nmicro
+
+{txt}Fitting Poisson model:
+{res}
+{txt}Iteration 0:{space 2}Log likelihood = {res:-43.322108}  
+Iteration 1:{space 2}Log likelihood = {res:-43.321976}  
+Iteration 2:{space 2}Log likelihood = {res:-43.321976}  
+{res}
+{txt}Fitting constant-only model:
+{res}
+{txt}Iteration 0:{space 2}Log likelihood = {res:-58.373938}  
+Iteration 1:{space 2}Log likelihood = {res:-51.471078}  
+Iteration 2:{space 2}Log likelihood = {res:-51.471078}  
+{res}
+{txt}Fitting full model:
+{res}
+{txt}Iteration 0:{space 2}Log likelihood = {res:-44.783599}  
+Iteration 1:{space 2}Log likelihood = {res:-43.322767}  
+Iteration 2:{space 2}Log likelihood = {res:-43.321976}  
+Iteration 3:{space 2}Log likelihood = {res:-43.321976}  
+{res}
+{txt}{col 1}Negative binomial regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:60}
+{txt}{col 57}{lalign 13:LR chi2({res:3})}{col 70} = {res}{ralign 6:16.30}
+{txt}{col 1}Dispersion: {res:mean}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0010}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-43.321976}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.1583}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    reussite{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}necono {c |}{col 14}{res}{space 2} .1178814{col 26}{space 2} .0712014{col 37}{space 1}    1.66{col 46}{space 3}0.098{col 54}{space 4}-.0216707{col 67}{space 3} .2574336
+{txt}{space 4}nenfants {c |}{col 14}{res}{space 2}-.2326531{col 26}{space 2}  .180321{col 37}{space 1}   -1.29{col 46}{space 3}0.197{col 54}{space 4}-.5860757{col 67}{space 3} .1207695
+{txt}{space 6}nmicro {c |}{col 14}{res}{space 2} .0282353{col 26}{space 2} .0591306{col 37}{space 1}    0.48{col 46}{space 3}0.633{col 54}{space 4}-.0876587{col 67}{space 3} .1441292
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-1.710448{col 26}{space 2} 1.066182{col 37}{space 1}   -1.60{col 46}{space 3}0.109{col 54}{space 4}-3.800127{col 67}{space 3} .3792304
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 4}/lnalpha {c |}{col 14}{res}{space 2}-43.40468{col 26}{space 2}        .{col 54}{space 4}        .{col 67}{space 3}        .
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+       alpha {c |}{col 14}{res}{space 2} 1.41e-19{col 26}{space 2}        .{col 54}{space 4}        .{col 67}{space 3}        .
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+LR test of alpha=0: {help j_chibar##|_new:chibar2(01) = }{res}0.00{col 56}{txt}Prob >= chibar2 = {res}1.000
+
+{com}. exit, clear
